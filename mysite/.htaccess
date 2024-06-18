@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Deny access to potentially sensitive files
+    <FilesMatch "\.(php|php3|php4|php5|phtml|inc)$">
+        Deny from all
+    </FilesMatch>
+
+    # Allow access to assets
+    RewriteRule ^assets/ - [L]
+
+    # Rewrite the rest of the requests to the main index.php file
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.php [L]
+</IfModule>
